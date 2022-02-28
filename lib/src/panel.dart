@@ -159,11 +159,14 @@ class SlidingUpPanel extends StatefulWidget {
   /// by default the Panel is open and must be swiped closed by the user.
   final PanelState defaultPanelState;
 
+  final Function()? onScrollEnd;
+
   SlidingUpPanel(
       {Key? key,
       this.panel,
       this.panelBuilder,
       this.body,
+        this.onScrollEnd,
       this.collapsed,
       this.minHeight = 100.0,
       this.maxHeight = 500.0,
@@ -493,6 +496,8 @@ class _SlidingUpPanelState extends State<SlidingUpPanel>
   void _onGestureEnd(Velocity v) {
     double minFlingVelocity = 365.0;
     double kSnap = 8;
+
+    widget.onScrollEnd != null ? widget.onScrollEnd!() : null;
 
     //let the current animation finish before starting a new one
     if (_ac.isAnimating) return;
